@@ -57,8 +57,7 @@ public class TestParser {
         return reader.readLine();
     }
 	
-	private void testing() throws IOException, ParseException,
-			UnsupportedEncodingException {
+	private void testing() throws IOException, ParseException, UnsupportedEncodingException {
 		String header0200 = mf.getIsoHeader(0x0200);
 		System.out.println("Test create 0200 ISO Header: " + header0200);
 	
