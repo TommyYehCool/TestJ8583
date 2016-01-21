@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.text.ParseException;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,18 +17,17 @@ import com.solab.iso8583.MessageFactory;
 import com.solab.iso8583.parse.ConfigParser;
 
 public class TestParser {
-	private final static Logger log = LoggerFactory.getLogger(TestParser.class);
+	
+	private final static Logger log = LoggerFactory.getLogger("com.syscom.test");
+	
+	private MessageFactory<IsoMessage> mf = new MessageFactory<IsoMessage>(); 
 	
 	private BufferedReader reader;
 
 	private void start() throws IOException, ParseException {
-		String config = "./config/j8583-config.xml";
+		loadLog4jConfig();
 		
-		MessageFactory<IsoMessage> mf = new MessageFactory<IsoMessage>();
-		
-		ConfigParser.configureFromUrl(mf, new File(config).toURI().toURL());
-		
-		log.info("Load config succeed, path: [{}]", config);
+		loadJ8583Config();
 		
 		String header0200 = mf.getIsoHeader(0x0200);
 		System.out.println("Test create 0200 ISO Header: " + header0200);
@@ -61,6 +62,22 @@ public class TestParser {
         		System.out.println(msg.getObjectValue(48));
             }
         }
+	}
+	
+	private void loadLog4jConfig() {
+		String log4jConfig = "./config/log4j.properties";
+
+		PropertyConfigurator.configure(log4jConfig);
+		
+		log.info("Load log4j config succeed, path: [{}]", log4jConfig);
+	}
+
+	private void loadJ8583Config() throws IOException, MalformedURLException {
+		String config = "./config/j8583-config.xml";
+		
+		ConfigParser.configureFromUrl(mf, new File(config).toURI().toURL());
+		
+		log.info("Load config succeed, path: [{}]", config);
 	}
 	
 	private String getMessage() throws IOException {
