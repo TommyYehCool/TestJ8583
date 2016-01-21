@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 
@@ -29,41 +30,9 @@ public class TestParser {
 		
 		loadJ8583Config();
 		
-		String header0200 = mf.getIsoHeader(0x0200);
-		System.out.println("Test create 0200 ISO Header: " + header0200);
-
-		String header0210 = mf.getIsoHeader(0x0210);
-		System.out.println("Test create 0210 ISO Header: " + header0210);
-		
-		String header0400 = mf.getIsoHeader(0x0400);
-		System.out.println("Test create 0400 ISO Header: " + header0400);
-		
-		String line = getMessage();
-		
-		IsoMessage msg = null;
-		if (line != null && line.length() > 0) {
-            msg = mf.parseMessage(line.getBytes(), 0);
-            if (msg != null) {
-                System.out.printf("\nMessage type: %04x%n", msg.getType());
-                System.out.println("FIELD TYPE    VALUE");
-                for (int i = 2; i <= 128; i++) {
-                    IsoValue<?> f = msg.getField(i);
-                    if (f != null) {
-                        System.out.printf("%5d %-6s [", i, f.getType());
-                        System.out.print(f.toString());
-                        System.out.println(']');
-                    }
-                }
-                
-                System.out.println("\nTry to get field 3:");
-        		System.out.println(msg.getObjectValue(3));
-        		
-        		System.out.println("\nTry to get field 48:");
-        		System.out.println(msg.getObjectValue(48));
-            }
-        }
+		testing();
 	}
-	
+
 	private void loadLog4jConfig() {
 		String log4jConfig = "./config/log4j.properties";
 
@@ -88,6 +57,43 @@ public class TestParser {
         return reader.readLine();
     }
 	
+	private void testing() throws IOException, ParseException,
+			UnsupportedEncodingException {
+		String header0200 = mf.getIsoHeader(0x0200);
+		System.out.println("Test create 0200 ISO Header: " + header0200);
+	
+		String header0210 = mf.getIsoHeader(0x0210);
+		System.out.println("Test create 0210 ISO Header: " + header0210);
+		
+		String header0400 = mf.getIsoHeader(0x0400);
+		System.out.println("Test create 0400 ISO Header: " + header0400);
+		
+		String line = getMessage();
+		
+		IsoMessage msg = null;
+		if (line != null && line.length() > 0) {
+	        msg = mf.parseMessage(line.getBytes(), 0);
+	        if (msg != null) {
+	            System.out.printf("\nMessage type: %04x%n", msg.getType());
+	            System.out.println("FIELD TYPE    VALUE");
+	            for (int i = 2; i <= 128; i++) {
+	                IsoValue<?> f = msg.getField(i);
+	                if (f != null) {
+	                    System.out.printf("%5d %-6s [", i, f.getType());
+	                    System.out.print(f.toString());
+	                    System.out.println(']');
+	                }
+	            }
+	            
+	            System.out.println("\nTry to get field 3:");
+	    		System.out.println(msg.getObjectValue(3));
+	    		
+	    		System.out.println("\nTry to get field 48:");
+	    		System.out.println(msg.getObjectValue(48));
+	        }
+	    }
+	}
+
 	public static void main(String[] args) throws IOException, ParseException {
 		new TestParser().start();
 	}

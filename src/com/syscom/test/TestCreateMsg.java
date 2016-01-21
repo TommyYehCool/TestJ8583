@@ -24,6 +24,26 @@ public class TestCreateMsg {
 		
 		loadJ8583Config();
 		
+		testing();
+	}
+
+	private void loadLog4jConfig() {
+		String log4jConfig = "./config/log4j.properties";
+
+		PropertyConfigurator.configure(log4jConfig);
+		
+		log.info("Load log4j config succeed, path: [{}]", log4jConfig);
+	}
+
+	private void loadJ8583Config() throws IOException, MalformedURLException {
+		String j8583Config = "./config/j8583-config.xml";
+		
+		ConfigParser.configureFromUrl(mf, new File(j8583Config).toURI().toURL());
+		
+		log.info("Load config succeed, path: [{}]", j8583Config);
+	}
+
+	private void testing() {
 		IsoMessage isoMsg = mf.newMessage(0x200);
 		isoMsg.setCharacterEncoding("UTF-8");
 		
@@ -41,22 +61,6 @@ public class TestCreateMsg {
 		
 		byte[] data0200 = isoMsg.writeData();
 		log.info("0200 data: {}", new String(data0200));
-	}
-
-	private void loadLog4jConfig() {
-		String log4jConfig = "./config/log4j.properties";
-
-		PropertyConfigurator.configure(log4jConfig);
-		
-		log.info("Load log4j config succeed, path: [{}]", log4jConfig);
-	}
-
-	private void loadJ8583Config() throws IOException, MalformedURLException {
-		String j8583Config = "./config/j8583-config.xml";
-		
-		ConfigParser.configureFromUrl(mf, new File(j8583Config).toURI().toURL());
-		
-		log.info("Load config succeed, path: [{}]", j8583Config);
 	}
 
 	public static void main(String[] args) throws IOException {
