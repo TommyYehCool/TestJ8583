@@ -30,13 +30,22 @@ public class ConvertUtil {
     }
 	
 	public static String bytesToHex(byte[] bytes) {
-		char[] hexChars = new char[bytes.length * 2];
-		for (int j = 0; j < bytes.length; j++) {
-			int v = bytes[j] & 0xFF;
-			hexChars[j * 2] = hexArray[v >>> 4];
-			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-	    }
-	    return new String(hexChars);
+		StringBuilder buffer = new StringBuilder();
+		for (int i = 0; i < bytes.length; i++) {
+			buffer.append(String.format("%02x", bytes[i]));
+			if (i != bytes.length - 1) {
+				buffer.append(" ");
+			}
+		}
+		return buffer.toString();
+	}
+	
+	private static void showBytesContents(byte[] bLens) {
+		System.out.print("Bytes content: ");
+		for (int i = 0; i < bLens.length; i++) {
+			System.out.print(bLens[i] + " ");
+		}
+		System.out.println();
 	}
 
 	public static void main(String[] args) {
@@ -44,7 +53,7 @@ public class ConvertUtil {
 		
 		System.out.println("Message length: " + msgLen);
 		
-		System.out.println("----------------------------------------------");
+		System.out.println("---------------------------------------------------");
 		
 		byte[] b2BytesLens = convertIntTo2Bytes(msgLen);
 		
@@ -56,20 +65,12 @@ public class ConvertUtil {
 		
 		byte[] b4BytesLens = convertIntTo4Bytes(msgLen);
 		
-		System.out.println("----------------------------------------------");
+		System.out.println("---------------------------------------------------");
 		
 		showBytesContents(b4BytesLens);
 		
 		System.out.println("Convert 4 bytes array to hex string: " + bytesToHex(b4BytesLens));
 		
 		System.out.println("Convert 4 bytes to int: " + convert4BytesToInt(b4BytesLens));
-	}
-
-	private static void showBytesContents(byte[] bLens) {
-		System.out.print("Bytes content: ");
-		for (int i = 0; i < bLens.length; i++) {
-			System.out.print(bLens[i] + " ");
-		}
-		System.out.println();
 	}
 }
