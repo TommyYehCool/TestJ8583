@@ -45,7 +45,7 @@ public class TestCreateMsg {
 	}
 
 	private void testing() {
-		IsoMessage isoMsg = mf.newMessage(0x200);
+		IsoMessage isoMsg = mf.newMessage(0x0200);
 		isoMsg.setCharacterEncoding("UTF-8");
 		
 		boolean hasField3 = isoMsg.hasField(3);
@@ -57,8 +57,13 @@ public class TestCreateMsg {
 		boolean hasField32 = isoMsg.hasField(32);
 		log.info("0200 has field 32: {}", hasField32);
 		
-		IsoType field32Type = isoMsg.getField(32).getType();
+		IsoValue<Object> field32 = isoMsg.getField(32);
+		
+		IsoType field32Type = field32.getType();
+
 		log.info("0200 field 32 IsoType: {}", field32Type);
+		
+		log.info("0200 field 32 value: {}", field32.getValue());
 		
 		boolean hasField4 = isoMsg.hasField(4);
 		log.info("0200 has field 4: {}", hasField4);
