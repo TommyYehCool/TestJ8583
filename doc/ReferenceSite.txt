@@ -1,10 +1,10 @@
-格式：
+格式文件：
 	https://sites.google.com/site/paymentsystemsblog/iso8583-financial-transaction-message-format
 
-範例：(example 裡面的值從這裡貼出來的)
+範例電文：(example 裡面的值從這裡貼出來的)
 	https://ariestania.wordpress.com/2014/04/02/how-to-read-iso8583-message/
 
-讀取 ：
+從 socket 讀取範例程式：
 	https://github.com/kstinchcombe/Iso8583-stream-reader/blob/master/IsoStreamReader.java
 
 用open source(jPOS)壓縮 ：
@@ -13,8 +13,11 @@
 用open source(jPOS)解壓縮：
 	http://kodejava.org/how-do-i-unpack-an-iso-8583-message/
 
-Open Source:
+open source:
 	https://krishnarag.wordpress.com/2014/06/18/iso-8583-j8583-java-library/
      
 j8583(這個範例使用到的 library):
 	http://j8583.sourceforge.net/index.html
+	
+j8583 config 範例:
+	https://github.com/chochos/j8583/blob/master/src/test/resources/config.xml
