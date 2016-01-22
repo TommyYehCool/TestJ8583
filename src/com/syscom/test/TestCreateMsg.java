@@ -63,7 +63,15 @@ public class TestCreateMsg {
 
 		log.info("0200 field 32 IsoType: {}", field32Type);
 		
-		log.info("0200 field 32 value: {}", field32.getValue());
+		log.info("0200 field 32 original value: {}", field32.getValue());
+		
+		String test32Val = "Jeff handsome";
+		IsoValue<Object> val32 = new IsoValue<Object>(field32Type, test32Val);
+		isoMsg.putAt(32, val32);
+		
+		field32 = isoMsg.getField(32);
+		
+		log.info("0200 field 32 new value: {}", field32.getValue());
 		
 		boolean hasField4 = isoMsg.hasField(4);
 		log.info("0200 has field 4: {}", hasField4);
