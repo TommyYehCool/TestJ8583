@@ -1,6 +1,6 @@
 package com.syscom.test;
 
-public class TestLengthToTwoBytes {
+public class ConvertUtil {
 	
 	final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
 	
