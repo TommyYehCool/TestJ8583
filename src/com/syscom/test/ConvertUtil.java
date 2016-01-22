@@ -63,14 +63,16 @@ public class ConvertUtil {
 		
 		System.out.println("Convert 2 bytes to int: " + convert2BytesToInt(b2BytesLens));
 		
-		byte[] b4BytesLens = convertIntTo4Bytes(msgLen);
-		
 		System.out.println("---------------------------------------------------");
+
+		byte[] b4BytesLens = convertIntTo4Bytes(msgLen);
 		
 		showBytesContents(b4BytesLens);
 		
 		System.out.println("Convert 4 bytes array to hex string: " + bytesToHex(b4BytesLens));
 		
 		System.out.println("Convert 4 bytes to int: " + convert4BytesToInt(b4BytesLens));
+		
+		System.out.println("---------------------------------------------------");
 	}
 }
