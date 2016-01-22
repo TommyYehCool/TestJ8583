@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.solab.iso8583.IsoMessage;
 import com.solab.iso8583.IsoType;
+import com.solab.iso8583.IsoValue;
 import com.solab.iso8583.MessageFactory;
 import com.solab.iso8583.parse.ConfigParser;
 
@@ -53,11 +54,17 @@ public class TestCreateMsg {
 		IsoType field3Type = isoMsg.getField(3).getType();
 		log.info("0200 field 3 IsoType: " + field3Type);
 		
+		boolean hasField32 = isoMsg.hasField(32);
+		log.info("0200 has field 32: " + hasField32);
+		
 		IsoType field32Type = isoMsg.getField(32).getType();
 		log.info("0200 field 32 IsoType: " + field32Type);
 		
 		boolean hasField4 = isoMsg.hasField(4);
 		log.info("0200 has field 4: " + hasField4);
+		
+		IsoValue<Object> field4 = isoMsg.getField(4);
+		log.info("0200 field 4: " + field4);
 		
 		byte[] data0200 = isoMsg.writeData();
 		log.info("0200 data: {}", new String(data0200));
